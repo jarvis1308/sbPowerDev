@@ -322,7 +322,7 @@ export const useThemeStore = create<ThemeState>()(
           return customColors as unknown as ThemePreset['colors'];
         }
         const preset = DEFAULT_PRESETS.find((p) => p.id === activePresetId);
-        return preset?.colors || DEFAULT_PRESETS[4].colors;
+        return preset?.colors || DEFAULT_PRESETS[0].colors;
       },
 
       getActivePreset: () => {

@@ -173,7 +173,7 @@ export default function ROICalculatorContent() {
     formState: { errors, isValid },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       teamSize: 10,
       hoursPerWeek: 20,
