@@ -4,30 +4,30 @@
 
 @layer base {
   /* ═══════════════════════════════════════════════════════
-     DEFAULT THEME: Slate & Electric (Light Mode)
+     DEFAULT THEME: Obsidian Ember (Light Mode)
      These are the fallback values before JS hydration.
      The ThemeProvider will override these with the
      active preset from localStorage.
      ═══════════════════════════════════════════════════════ */
   :root {
-    --primary: 240 6% 10%;
+    --primary: 24 10% 10%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 239 84% 67%;
+    --secondary: 25 95% 53%;
     --secondary-foreground: 0 0% 100%;
-    --accent: 350 89% 60%;
+    --accent: 31 96% 61%;
     --accent-foreground: 0 0% 100%;
 
-    --background: 0 0% 98%;
-    --foreground: 240 6% 10%;
+    --background: 40 20% 98%;
+    --foreground: 24 10% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 240 6% 10%;
+    --card-foreground: 24 10% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 6% 10%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 239 84% 67%;
+    --popover-foreground: 24 10% 10%;
+    --muted: 30 10% 95%;
+    --muted-foreground: 24 5% 45%;
+    --border: 30 8% 90%;
+    --input: 30 8% 90%;
+    --ring: 25 95% 53%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -41,35 +41,35 @@
     --radius: 0.75rem;
     --header-height: 4rem;
 
-    --chart-1: 239 84% 67%;
+    --chart-1: 25 95% 53%;
     --chart-2: 160 60% 45%;
     --chart-3: 38 92% 50%;
-    --chart-4: 350 89% 60%;
+    --chart-4: 31 96% 61%;
     --chart-5: 199 89% 48%;
   }
 
   /* ═══════════════════════════════════════════════════════
-     DEFAULT THEME: Slate & Electric (Dark Mode)
+     DEFAULT THEME: Obsidian Ember (Dark Mode)
      ═══════════════════════════════════════════════════════ */
   [data-theme="dark"] {
-    --primary: 0 0% 93%;
-    --primary-foreground: 240 6% 10%;
-    --secondary: 239 84% 70%;
+    --primary: 40 6% 90%;
+    --primary-foreground: 24 10% 10%;
+    --secondary: 31 96% 61%;
     --secondary-foreground: 0 0% 100%;
-    --accent: 350 89% 63%;
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 100%;
 
-    --background: 240 6% 4%;
-    --foreground: 0 0% 93%;
-    --card: 240 5% 7%;
-    --card-foreground: 0 0% 93%;
-    --popover: 240 5% 7%;
-    --popover-foreground: 0 0% 93%;
-    --muted: 240 4% 12%;
-    --muted-foreground: 240 4% 55%;
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 239 84% 70%;
+    --background: 24 10% 4%;
+    --foreground: 40 6% 90%;
+    --card: 24 8% 8%;
+    --card-foreground: 40 6% 90%;
+    --popover: 24 8% 8%;
+    --popover-foreground: 40 6% 90%;
+    --muted: 24 6% 12%;
+    --muted-foreground: 24 5% 55%;
+    --border: 24 5% 15%;
+    --input: 24 5% 15%;
+    --ring: 31 96% 61%;
   }
 }
 

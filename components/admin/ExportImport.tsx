@@ -159,7 +159,7 @@ export function ExportImport() {
           <Textarea
             value={importText}
             onChange={(e) => setImportText(e.target.value)}
-            placeholder='{"mode": "system", "activePresetId": "slate-electric", ...}'
+            placeholder='{"mode": "system", "activePresetId": "obsidian-ember", ...}'
             className="font-mono text-xs min-h-[100px]"
           />
           <Button

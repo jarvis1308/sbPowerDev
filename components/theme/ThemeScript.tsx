@@ -19,7 +19,7 @@ export function ThemeScript() {
           {id:'slate-electric',l:{p:'240 6% 10%',s:'239 84% 67%',a:'350 89% 60%',bg:'0 0% 98%',fg:'240 6% 10%',m:'240 5% 96%',mf:'240 4% 46%',b:'240 6% 90%',r:'239 84% 67%',c:'0 0% 100%',cf:'240 6% 10%'},d:{p:'0 0% 93%',s:'239 84% 70%',a:'350 89% 63%',bg:'240 6% 4%',fg:'0 0% 93%',m:'240 4% 12%',mf:'240 4% 55%',b:'240 4% 16%',r:'239 84% 70%',c:'240 5% 7%',cf:'0 0% 93%'}}
         ];
 
-        var presetId = state.activePresetId || 'slate-electric';
+        var presetId = state.activePresetId || 'obsidian-ember';
         var custom = state.customColors;
         var el = document.documentElement;
 

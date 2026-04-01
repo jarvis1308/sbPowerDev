@@ -278,7 +278,7 @@ interface ThemeState {
   resetToDefault: () => void;
 }
 
-const DEFAULT_PRESET_ID = 'slate-electric';
+const DEFAULT_PRESET_ID = 'obsidian-ember';
 
 export const useThemeStore = create<ThemeState>()(
   persist(
