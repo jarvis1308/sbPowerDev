@@ -10,7 +10,7 @@ export const siteConfig = {
     india: '+91 8882 488624',
   },
   social: {
-    linkedin: 'https://www.linkedin.com/company/sbpowerdev',
+    linkedin: 'https://www.linkedin.com/company/sbpowerdevonlinkedin/',
     twitter: 'https://twitter.com/sbpowerdev',
     youtube: 'https://www.youtube.com/@sbpowerdev',
   },

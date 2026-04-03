@@ -4,7 +4,10 @@
       "Bash(npx create-next-app@latest . --typescript --tailwind --app --src-dir=false --import-alias=\"@/*\" --eslint --yes)",
       "Bash(cd:*)",
       "Bash(npx next:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:www.sbpowerdev.com)",
+      "Bash(find /d/Apeksha/NextJs/sb-powerdev -name *navigation* -type f)",
+      "Bash(find /d/Apeksha/NextJs/sb-powerdev -name Header* -type f)"
     ]
   }
 }

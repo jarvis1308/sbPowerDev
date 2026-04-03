@@ -41,49 +41,28 @@ function HeroBackground() {
         }}
       />
 
-      {/* Large animated gradient orb — top right (secondary color) */}
-      <motion.div
-        animate={{
-          x: [0, 30, -10, 0],
-          y: [0, -20, 15, 0],
-          scale: [1, 1.1, 0.95, 1],
-        }}
-        transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -top-32 -right-32 w-[700px] h-[700px] rounded-full blur-[120px] opacity-[0.12] dark:opacity-[0.15]"
+      {/* Large gradient orb — top right (secondary color) */}
+      {/* Mobile: static + smaller blur. Desktop: animated. */}
+      <div
+        className="absolute -top-32 -right-32 w-[400px] h-[400px] md:w-[700px] md:h-[700px] rounded-full blur-[60px] md:blur-[120px] opacity-[0.12] dark:opacity-[0.15]"
+        style={{ background: 'hsl(var(--secondary))', willChange: 'transform' }}
+      />
+
+      {/* Large gradient orb — bottom left (accent color) */}
+      <div
+        className="absolute -bottom-40 -left-20 w-[350px] h-[350px] md:w-[600px] md:h-[600px] rounded-full blur-[60px] md:blur-[120px] opacity-[0.10] dark:opacity-[0.12]"
+        style={{ background: 'hsl(var(--accent))', willChange: 'transform' }}
+      />
+
+      {/* Smaller orb — center left (desktop only) */}
+      <div
+        className="absolute top-1/3 left-[15%] w-[300px] h-[300px] rounded-full blur-[100px] opacity-[0.08] dark:opacity-[0.10] hidden md:block"
         style={{ background: 'hsl(var(--secondary))' }}
       />
 
-      {/* Large animated gradient orb — bottom left (accent color) */}
-      <motion.div
-        animate={{
-          x: [0, -20, 25, 0],
-          y: [0, 20, -10, 0],
-          scale: [1, 0.95, 1.08, 1],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute -bottom-40 -left-20 w-[600px] h-[600px] rounded-full blur-[120px] opacity-[0.10] dark:opacity-[0.12]"
-        style={{ background: 'hsl(var(--accent))' }}
-      />
-
-      {/* Smaller floating orb — center left (secondary) */}
-      <motion.div
-        animate={{
-          y: [0, -40, 0],
-          x: [0, 20, 0],
-        }}
-        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/3 left-[15%] w-[300px] h-[300px] rounded-full blur-[100px] opacity-[0.08] dark:opacity-[0.10]"
-        style={{ background: 'hsl(var(--secondary))' }}
-      />
-
-      {/* Smaller floating orb — center right (accent) */}
-      <motion.div
-        animate={{
-          y: [0, 30, 0],
-          x: [0, -15, 0],
-        }}
-        transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/2 right-[10%] w-[250px] h-[250px] rounded-full blur-[100px] opacity-[0.06] dark:opacity-[0.08]"
+      {/* Smaller orb — center right (desktop only) */}
+      <div
+        className="absolute top-1/2 right-[10%] w-[250px] h-[250px] rounded-full blur-[100px] opacity-[0.06] dark:opacity-[0.08] hidden md:block"
         style={{ background: 'hsl(var(--accent))' }}
       />
 
@@ -353,7 +332,7 @@ function StatPill({ value, label, delay }: { value: string; label: string; delay
       initial={{ opacity: 0, y: 12 }}
       animate={visible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: EASE }}
-      className="flex items-center gap-3 px-5 py-3 bg-card/60 backdrop-blur-sm rounded-xl border border-border"
+      className="flex items-center gap-3 px-5 py-3 bg-card/90 md:bg-card/60 md:backdrop-blur-sm rounded-xl border border-border"
     >
       <span className="text-2xl font-extrabold text-foreground tracking-tight">
         {count}{suffix}

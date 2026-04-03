@@ -457,19 +457,35 @@ export default function IndustriesSection() {
           ))}
         </motion.div>
 
-        {/* ═══ MOBILE (< 768px) ═══ */}
+        {/* ═══ MOBILE (< 768px) — static list, no animations ═══ */}
         <div className="md:hidden flex flex-col gap-3">
-          <AnimatePresence mode="wait">
-            <FeaturedCard key={activeId} industry={activeIndustry} />
-          </AnimatePresence>
-          {smallIndustries.map((ind) => (
-            <div key={ind.id} onClick={() => setActiveId(ind.id)}>
-              <SmallCard
-                industry={ind}
-                onHover={() => {}}
-                isNext={false}
-              />
-            </div>
+          {industries.map((ind) => (
+            <Link
+              key={ind.id}
+              href={`/industries/${ind.slug}`}
+              className="flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-secondary/30 transition-colors"
+            >
+              <div
+                className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0 border"
+                style={{ background: `${ind.color}10`, borderColor: `${ind.color}18` }}
+              >
+                {ind.emoji}
+              </div>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-sm font-bold text-foreground">{ind.title}</h3>
+                <p className="text-[11px] text-muted-foreground leading-snug mt-0.5">{ind.shortDesc}</p>
+              </div>
+              <span
+                className="text-base font-extrabold flex-shrink-0"
+                style={{
+                  background: `linear-gradient(135deg, ${ind.color}, ${ind.colorLight})`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                {ind.stat}
+              </span>
+            </Link>
           ))}
         </div>
 

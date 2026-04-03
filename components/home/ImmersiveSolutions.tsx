@@ -61,7 +61,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 function StarField() {
   const stars = useMemo(
     () =>
-      Array.from({ length: 90 }, () => ({
+      Array.from({ length: 40 }, () => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
         s: Math.random() * 1.5 + 0.3,
@@ -171,8 +171,8 @@ function CentralOrb({ scrollYProgress }: { scrollYProgress: { get: () => number 
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full border border-secondary/[0.08] animate-pulse-ring" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[224px] h-[224px] rounded-full border border-secondary/[0.12] animate-pulse-ring-delayed" />
 
-      {/* Glow aura */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[260px] h-[260px] rounded-full bg-secondary/[0.12] dark:bg-secondary/[0.15] blur-[60px] animate-glow-pulse" />
+      {/* Glow aura — static on mobile to avoid blur jank */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[260px] md:h-[260px] rounded-full bg-secondary/[0.12] dark:bg-secondary/[0.15] blur-[30px] md:blur-[60px] md:animate-glow-pulse" />
 
       {/* The orb */}
       <div
@@ -287,7 +287,7 @@ function SolutionCard({ solution, orbit, index }: SolutionCardProps) {
             border border-border dark:border-white/[0.06]
             hover:border-secondary/30 dark:hover:border-secondary/30
             hover:shadow-xl dark:hover:shadow-[0_16px_48px_hsl(var(--secondary)/0.1)]
-            backdrop-blur-xl
+            md:backdrop-blur-xl
           "
         >
           {/* Icon + Stat row */}

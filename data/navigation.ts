@@ -174,6 +174,12 @@ export const mainNav: NavItem[] = [
             description: 'Webinars, workshops & more',
           },
           {
+            label: 'ROI Calculator',
+            href: '/tools/roi-calculator',
+            icon: Calculator,
+            description: 'Calculate your potential savings',
+          },
+          {
             label: 'FAQ',
             href: '/faq',
             icon: HelpCircle,
@@ -206,7 +212,23 @@ export const mainNav: NavItem[] = [
       },
     ],
   } as NavMegaMenu,
-  { label: 'Pricing', href: '/pricing' },
+  {
+    label: 'Tools',
+    children: [
+      {
+        label: 'ROI Calculator',
+        href: '/tools/roi-calculator',
+        icon: Calculator,
+        description: 'See how much you could save with automation',
+      },
+      {
+        label: 'Pricing',
+        href: '/pricing',
+        icon: DollarSign,
+        description: 'Transparent plans for every business size',
+      },
+    ],
+  },
   { label: 'How We Work', href: '/how-we-work' },
   { label: 'Contact', href: '/contact' },
 ];

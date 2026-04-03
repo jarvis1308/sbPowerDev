@@ -139,6 +139,7 @@ function DesktopPanel({
         minWidth: 80,
         height: 320,
         transition: 'flex 550ms cubic-bezier(0.22, 1, 0.36, 1)',
+        willChange: 'flex',
       }}
     >
       {/* Light mode card bg */}
@@ -281,10 +282,10 @@ function DesktopPanel({
         )}
       </div>
 
-      {/* Inactive hover glow */}
+      {/* Inactive hover glow — desktop only to avoid mobile blur jank */}
       {!isActive && (
         <div
-          className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 pointer-events-none"
+          className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 pointer-events-none hidden md:block"
           style={{
             width: 80,
             height: 40,

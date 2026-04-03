@@ -17,7 +17,7 @@ import {
   LineChart,
   Line,
 } from 'recharts';
-import { Calculator, Download, CalendarCheck } from 'lucide-react';
+import { Calculator, Download, CalendarCheck, Zap, ShieldCheck, Clock, TrendingDown, Repeat, Users } from 'lucide-react';
 import SectionHeading from '@/components/shared/SectionHeading';
 import PartnerCTA from '@/components/shared/PartnerCTA';
 import AnimatedSection from '@/components/shared/AnimatedSection';
@@ -68,6 +68,14 @@ type FormValues = z.infer<typeof formSchema>;
 /* ------------------------------------------------------------------ */
 /*  Calculation helpers                                               */
 /* ------------------------------------------------------------------ */
+interface SavingsBreakdownItem {
+  icon: 'zap' | 'shield' | 'clock' | 'trending-down' | 'repeat' | 'users';
+  title: string;
+  description: string;
+  saving: number;
+  percentage: number;
+}
+
 interface ROIResults {
   annualManualCost: number;
   automationSavings: number;
@@ -75,20 +83,30 @@ interface ROIResults {
   totalSavings: number;
   efficiencyGain: number;
   paybackPeriod: number;
+  implementationCost: number;
   barData: { name: string; amount: number }[];
   lineData: { month: string; savings: number }[];
+  breakdown: SavingsBreakdownItem[];
+  hoursFreedPerYear: number;
 }
 
 function calculate(values: FormValues): ROIResults {
   const annualManualCost =
     values.teamSize * values.hoursPerWeek * 52 * values.hourlyCost;
-  const automationSavings = annualManualCost * 0.6;
-  const errorCostSavings =
-    annualManualCost * (values.errorRate / 100) * 0.8;
-  const totalSavings = automationSavings + errorCostSavings;
+
+  // Breakdown: 6 specific areas of savings
+  const workflowAutomation = annualManualCost * 0.30; // 30% — replacing manual repetitive tasks
+  const errorElimination = annualManualCost * (values.errorRate / 100) * 0.8; // 80% of error costs eliminated
+  const processAcceleration = annualManualCost * 0.15; // 15% — faster turnaround times
+  const reportingAutomation = annualManualCost * 0.10; // 10% — automated dashboards replace manual reporting
+  const approvalWorkflows = annualManualCost * 0.05; // 5% — automated routing and approvals
+  const retrainingReduction = values.teamSize * 500; // ~$500/person/year saved on reduced onboarding
+
+  const totalSavings = workflowAutomation + errorElimination + processAcceleration + reportingAutomation + approvalWorkflows + retrainingReduction;
   const efficiencyGain = (totalSavings / annualManualCost) * 100;
   const implementationCost = annualManualCost * 0.15;
   const paybackPeriod = implementationCost / (totalSavings / 12);
+  const hoursFreedPerYear = Math.round(values.teamSize * values.hoursPerWeek * 52 * (totalSavings / annualManualCost));
 
   const monthlyCurrent = annualManualCost / 12;
   const monthlyProjected = (annualManualCost - totalSavings) / 12;
@@ -104,15 +122,63 @@ function calculate(values: FormValues): ROIResults {
     savings: Math.round(monthlySavings * (i + 1) - implementationCost),
   }));
 
+  const breakdown: SavingsBreakdownItem[] = [
+    {
+      icon: 'zap',
+      title: 'Workflow Automation',
+      description: `Replace ${Math.round(values.hoursPerWeek * 0.6)}h/week of repetitive manual tasks per person with Power Automate flows — data entry, email routing, form processing, and approval chains run automatically.`,
+      saving: Math.round(workflowAutomation),
+      percentage: Math.round((workflowAutomation / totalSavings) * 100),
+    },
+    {
+      icon: 'shield',
+      title: 'Error & Rework Elimination',
+      description: `Your current ${values.errorRate}% error rate costs $${Math.round(annualManualCost * values.errorRate / 100).toLocaleString()}/year. Automated validation, data checks, and standardized workflows eliminate 80% of these errors.`,
+      saving: Math.round(errorElimination),
+      percentage: Math.round((errorElimination / totalSavings) * 100),
+    },
+    {
+      icon: 'clock',
+      title: 'Process Acceleration',
+      description: 'Tasks that took days now complete in minutes. Automated handoffs between departments, instant notifications, and parallel processing cut turnaround times by 60-80%.',
+      saving: Math.round(processAcceleration),
+      percentage: Math.round((processAcceleration / totalSavings) * 100),
+    },
+    {
+      icon: 'trending-down',
+      title: 'Reporting & Analytics Automation',
+      description: 'Replace hours of manual Excel work with live Power BI dashboards. Auto-generated reports, scheduled email digests, and self-service analytics for your team.',
+      saving: Math.round(reportingAutomation),
+      percentage: Math.round((reportingAutomation / totalSavings) * 100),
+    },
+    {
+      icon: 'repeat',
+      title: 'Approval & Routing Workflows',
+      description: 'Multi-level approvals that used to chase people via email now route automatically with SLA tracking, escalation rules, and mobile approvals.',
+      saving: Math.round(approvalWorkflows),
+      percentage: Math.round((approvalWorkflows / totalSavings) * 100),
+    },
+    {
+      icon: 'users',
+      title: 'Reduced Training & Onboarding',
+      description: `Standardized digital processes mean new hires across your ${values.teamSize}-person team get up to speed faster. Built-in guides, templates, and automated SOPs reduce training time by 40%.`,
+      saving: Math.round(retrainingReduction),
+      percentage: Math.round((retrainingReduction / totalSavings) * 100),
+    },
+  ];
+
   return {
     annualManualCost: Math.round(annualManualCost),
-    automationSavings: Math.round(automationSavings),
-    errorCostSavings: Math.round(errorCostSavings),
+    automationSavings: Math.round(workflowAutomation),
+    errorCostSavings: Math.round(errorElimination),
     totalSavings: Math.round(totalSavings),
     efficiencyGain: Math.round(efficiencyGain),
     paybackPeriod: Math.round(paybackPeriod * 10) / 10,
+    implementationCost: Math.round(implementationCost),
     barData,
     lineData,
+    breakdown,
+    hoursFreedPerYear,
   };
 }
 
@@ -435,6 +501,85 @@ export default function ROICalculatorContent() {
                           months
                         </span>
                       </p>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* ══ HOW WE SAVE YOU MONEY — Breakdown ══ */}
+                <div className="mt-14">
+                  <h3 className="text-xl font-bold text-foreground mb-1">
+                    How We Save You ${results.totalSavings.toLocaleString()}/year
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-6">
+                    Here&apos;s exactly where the savings come from — no hand-waving, just concrete automation wins across your {results.hoursFreedPerYear.toLocaleString()} hours freed annually.
+                  </p>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {results.breakdown.map((item) => {
+                      const IconMap = {
+                        'zap': Zap,
+                        'shield': ShieldCheck,
+                        'clock': Clock,
+                        'trending-down': TrendingDown,
+                        'repeat': Repeat,
+                        'users': Users,
+                      };
+                      const Icon = IconMap[item.icon];
+                      return (
+                        <Card key={item.title} className="relative overflow-hidden">
+                          <CardContent className="p-5">
+                            <div className="flex items-start gap-3">
+                              <div className="w-9 h-9 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                                <Icon className="w-4.5 h-4.5 text-secondary" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between gap-2 mb-1">
+                                  <h4 className="text-sm font-bold text-foreground">{item.title}</h4>
+                                  <span className="text-xs font-bold text-secondary flex-shrink-0">
+                                    ${item.saving.toLocaleString()}/yr
+                                  </span>
+                                </div>
+                                <p className="text-xs text-muted-foreground leading-relaxed mb-2.5">
+                                  {item.description}
+                                </p>
+                                {/* Progress bar showing share of total savings */}
+                                <div className="flex items-center gap-2">
+                                  <div className="flex-1 h-1.5 rounded-full bg-muted overflow-hidden">
+                                    <div
+                                      className="h-full rounded-full bg-secondary/60"
+                                      style={{ width: `${item.percentage}%` }}
+                                    />
+                                  </div>
+                                  <span className="text-[10px] font-semibold text-muted-foreground">
+                                    {item.percentage}%
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </div>
+
+                  {/* Implementation summary */}
+                  <Card className="mt-4 border-secondary/20 bg-secondary/[0.03]">
+                    <CardContent className="p-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                          <h4 className="text-sm font-bold text-foreground">Implementation Investment</h4>
+                          <p className="text-xs text-muted-foreground mt-0.5">
+                            One-time cost covering discovery, build, testing, training, and deployment.
+                            You break even in <strong className="text-foreground">{results.paybackPeriod} months</strong>.
+                          </p>
+                        </div>
+                        <div className="text-right flex-shrink-0">
+                          <div className="text-lg font-extrabold text-foreground">
+                            ${results.implementationCost.toLocaleString()}
+                          </div>
+                          <div className="text-[10px] text-muted-foreground">estimated one-time</div>
+                        </div>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
